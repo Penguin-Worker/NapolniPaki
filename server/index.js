@@ -3,7 +3,7 @@ const express = require('express')
 const sequelize = require('./db')
 const models = require('./models/models')
 const cors = require('cors')
-
+const router = require('./routes/index')
 
 const PORT = process.env.PORT || 5000
 
@@ -14,6 +14,7 @@ app.use(express.json())
 app.get('/', (req ,res )=>{
     res.status(200).json({message: 'Its just works'})
 } )
+app.use('/api', router)
 
 
 
