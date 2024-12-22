@@ -2,6 +2,7 @@ const uuid = require('uuid')
 const path = require('path')
 const { Goods } = require('../models/models')
 const ApiError = require('../error/ApiError')
+const { where } = require('sequelize')
 
 class GoodsController {
     async create(req,res,next){
@@ -20,7 +21,26 @@ class GoodsController {
        
     }
     async getAll(req,res){
-        
+        const {brandId, typeId} = req.body
+        let goods;
+        if (!brandId && !typeId){
+            goods = await Goods.findAll()
+
+        }
+        if (brandId && !typeId){
+            goods = await Goods.findAll({where:{brandId}})
+
+        }
+        if (!brandId && typeId){
+            goods = await Goods.findAll({where:{typeId}})
+        }
+        if (brandId && typeId){
+            goods = await Goods.findAll({where:{brandId, brandId}})
+        }
+
+        return res.json(goods)
+
+
     }
     async getOne(req,res){
         
