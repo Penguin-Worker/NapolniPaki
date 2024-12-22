@@ -72,7 +72,7 @@ Rating.belongsTo(Goods)
 Goods.hasMany(BasketGoods)
 BasketGoods.belongsTo(Goods)
 
-Goods.hasMany(GoodsInfo)
+Goods.hasMany(GoodsInfo, {as: 'info'})
 GoodsInfo.belongsTo(Goods)
 
 Type.belongsToMany(Brand, {through: TypeBrand})
