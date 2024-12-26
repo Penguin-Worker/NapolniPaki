@@ -6,9 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import UserStore from './components/store/UserStore';
 import GoodsStore from './components/store/GoodsStore';
 
-export const  Context = createContext(null)
+
+export const  Context = createContext(null);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+root.render( 
+<React.StrictMode>
 <Context.Provider value={{
   user: new UserStore(),
   goods: new GoodsStore(),
@@ -16,7 +19,7 @@ root.render(
 <App />
 </Context.Provider>,
 
-  <React.StrictMode>
+ 
     
   </React.StrictMode>
 );

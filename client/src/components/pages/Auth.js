@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
@@ -6,10 +6,26 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import { NavLink , useLocation} from 'react-router-dom';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts';
+import { login, registration } from '../../http/userAPI';
 const Auth= () => {
 const location=useLocation()
 console.log(location)
 const isLogin=location.pathname===LOGIN_ROUTE
+
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+const click = async()=>{
+  if(isLogin){
+    const response = await login()
+    console.log(response)
+  }else{
+  const response = await registration(email,password)
+  console.log(response)
+  }
+  
+}
+
+
   return (
     <Container className='d-flex justify-content-center align-items-center' style={{height:window.innerHeight-54}}>
       <Card style={{width:600}} className="p-5">
@@ -17,11 +33,16 @@ const isLogin=location.pathname===LOGIN_ROUTE
       <Form className='d-flex flex-column'>
         <Form.Control
         className='mt-3'
-        placeholder='email'        
+        placeholder='email'   
+        value={email}   
+        onChange={e=>setEmail(e.target.value)}  
         />
         <Form.Control
         className='mt-3'
-        placeholder='password'        
+        placeholder='password'
+        value={password} 
+        onChange={e=>setPassword(e.target.value)} 
+        type ="password"      
         />
         <Row>
           {isLogin ? 
@@ -33,7 +54,9 @@ const isLogin=location.pathname===LOGIN_ROUTE
             Have account <NavLink to={LOGIN_ROUTE}>Login</NavLink>
           </div>
           }
-           <Button variant={'outline-success'} className='mt-2 align-self-end'>
+           <Button variant={'outline-success'} 
+           onClick={click}
+           className='mt-2 align-self-end'>
           {isLogin ? 'Login':'Registration'}
         </Button>
         </Row>
