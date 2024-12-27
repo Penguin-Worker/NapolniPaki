@@ -13,7 +13,7 @@ const GoodsPage= () => {
   const {id} = useParams()
   useEffect(() => {
     fetchOneGoods(id).then(data => setGoods(data))
-  }, [goods]);
+  }, []);
   return (
     <Container className='mt-3'>
       <Row>
@@ -40,10 +40,14 @@ const GoodsPage= () => {
       </Row>
       <Row className='d-flex flex-column m-3'>
         <h1>Details</h1>
-        {goods.info.map((info  ,index )=>
-          <Row key={info.id} style={{background: index % 2 === 0 ? 'lightgray':'transparent', padding:10}}> 
-            {info.title} : {info.description}
-          </Row>
+        {goods.info && goods.info.length > 0 ? (
+          goods.info.map((info, index) => (
+            <Row key={info.id} style={{ background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10 }}>
+              {info.title} : {info.description}
+            </Row>
+          ))
+        ) : (
+          <div>No details available.</div>  // Сообщение, если информация не доступна
         )}
       </Row>
     </Container>
