@@ -29,7 +29,7 @@ const Shop = observer( () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Загружаем товары с учетом выбранных типа, бренда и страницы
+        
         const fetchedGoods = await fetchGoods(goods.selectedType.id, goods.selectedBrand.id, goods.page, goods.limit);
         goods.setGoods(fetchedGoods.rows); 
         goods.setTotalCount(fetchedGoods.count);

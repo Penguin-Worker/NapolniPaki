@@ -3,7 +3,7 @@ import { Context } from '..';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { ADMIT_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from './utils/consts';
+import { ADMIT_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from './utils/consts';
 import Button from 'react-bootstrap/Button';
 import { observer } from 'mobx-react-lite';
 import Container from 'react-bootstrap/Container';
@@ -24,6 +24,7 @@ const NavBar=observer (() => {
       {user.isAuth ?
       <Nav className="ms-auto" style={{color:'white'}}>
         <Button variant='outline-light' onClick={()=> navigate(ADMIT_ROUTE)}>AdminPanel</Button>
+        <Button variant='outline-light' className="ms-2 " onClick={()=> navigate(BASKET_ROUTE)}>Profile</Button>
         <Button variant='outline-light' className="ms-2 " onClick={()=> logOut()}>Exit</Button>
       </Nav>
       :
