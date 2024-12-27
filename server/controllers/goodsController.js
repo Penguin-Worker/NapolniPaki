@@ -8,11 +8,20 @@ const { title } = require('process')
 class GoodsController {
     async create(req,res,next){
         try{
-             let {name, price, brandId, typeId, info} = req.body
-        const {img} = req.files
-        let fileName = uuid.v4() + ".jpg"
-        img.mv(path.resolve(__dirname,'..','static',fileName))
-
+            let { name, price, brandId, typeId, info } = req.body;
+           
+            
+            let img = req.files ? req.files.img : null;
+     let fileName;
+          
+            if (!img) {
+                fileName = 'default.jpg';
+            } else {
+                
+                fileName = uuid.v4() + ".jpg";
+            img.mv(path.resolve(__dirname, '..', 'static', fileName));  // Перемещаем файл
+         
+            }
         const goods = await Goods.create({name, price, brandId, typeId, img: fileName})
 
         if (info) {
