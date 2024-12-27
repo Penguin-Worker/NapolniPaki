@@ -36,10 +36,13 @@ export const createType = async (type) =>
                         return data
                     }
                 
-                    export const fetchGoods = async () =>
+                    export const fetchGoods = async (typeId, brandId,page, limit=5) =>
                         {
                             
-                            const {data} = await $host.get('api/goods')
+                            const {data} = await $host.get('api/goods',{params:{
+                                typeId, brandId, page, limit
+                        }   
+                        })
                             
                             return data
                         }

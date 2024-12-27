@@ -18,7 +18,7 @@ const GoodsPage= () => {
     <Container className='mt-3'>
       <Row>
       <Col md={4}>
-      <Image  width={300} height={300} src={process.env.REACT_APP_API_URL + goods.img}/>
+      <Image  width={300} height={300} src={process.env.REACT_APP_API_URL +'/static/'+ goods.img}/>
       </Col>
       <Col md={4}>
       <Row className='d-flex align-items-center'>
