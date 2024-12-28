@@ -13,13 +13,27 @@ const App = observer( ()=> {
   const {user} = useContext(Context)
   const[loading, setLoading] = useState(true)
 
-  useEffect(()=>{
-    
-    check().then(data=>{
-      user.setUser(true)
-      user.setIsAuth(true)
-    }).finally(()=>setLoading(false))
-  },[])
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        await check();
+        user.setUser(true);
+        user.setIsAuth(true);
+      } catch (error) {
+        console.error("Authentication failed:", error);
+        user.setIsAuth(false); 
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      initAuth();
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
 
   if(loading){
     return <Spinner animation='grow'/>

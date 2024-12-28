@@ -8,15 +8,13 @@ import { GOODS_ROUTE } from './utils/consts';
 import { Context } from '..';
 import { observer } from 'mobx-react-lite';
 
+
 const GoodItem = observer(({ goods }) => {
   const { goods: goodsStore } = useContext(Context);
-
   
   if (!goodsStore || !goodsStore.brands) {
     return <div>Loading...</div>;
-  }
-
-  
+  }  
   const brand = goodsStore.brands.find((brand) => brand.id === goods.brandId);
 
   const navigate = useNavigate();

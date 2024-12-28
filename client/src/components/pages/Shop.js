@@ -37,7 +37,7 @@ const Shop = observer( () => {
         console.error("Ошибка при загрузке товаров:", error);
       }
     }; loadData();
-  },[goods.page,goods.selectedType,goods.selectedBrand])
+  },[goods,goods.page,goods.selectedType,goods.selectedBrand])
  
   return (
     <Container>
@@ -46,8 +46,9 @@ const Shop = observer( () => {
       <TypeBar/>
       </Col>
       <Col md={9}>
+      
       <BrandBar/>
-      <GoodsList/>
+      <GoodsList/>      
       <Pages/>
       </Col>
      </Row>
