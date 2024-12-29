@@ -4,6 +4,7 @@ const { Goods, GoodsInfo } = require('../models/models')
 const ApiError = require('../error/ApiError')
 const { where } = require('sequelize')
 const { title } = require('process')
+const { Op } = require('sequelize');
 
 class GoodsController {
     async create(req,res,next){
@@ -42,25 +43,38 @@ class GoodsController {
        
     }
     async getAll(req, res) {
-        const { brandId, typeId, page = 1, limit = 9 } = req.query;
+        const { brandId, typeId, page = 1, limit = 9, price } = req.query;
         let goods;
         let offset = (page - 1) * limit;
     
-        if (!brandId && !typeId) {
-            goods = await Goods.findAndCountAll({ limit, offset });
-        }
-        if (brandId && !typeId) {
-            goods = await Goods.findAndCountAll({ where: { brandId }, limit, offset });
-        }
-        if (!brandId && typeId) {
-            goods = await Goods.findAndCountAll({ where: { typeId }, limit, offset });
-        }
-        if (brandId && typeId) {
-            goods = await Goods.findAndCountAll({ where: { brandId, typeId }, limit, offset });
+        const whereConditions = {};
+    
+        if (brandId) {
+            whereConditions.brandId = brandId;
         }
     
-        return res.json(goods);
-    }
+        if (typeId) {
+            whereConditions.typeId = typeId;
+        }
+    
+        if (price) {
+            whereConditions.price = { [Op.gte]: price }; 
+         }
+    
+        try {
+            goods = await Goods.findAndCountAll({
+                where: whereConditions,
+                limit,
+                offset
+            });
+    
+            return res.json(goods);
+        } catch (error) {
+            console.error("Ошибка при загрузке товаров:", error);
+            return res.status(500).json({ error: 'Ошибка при загрузке товаров' });
+        }
+    } 
+    
     async getOne(req,res){
         const {id} = req.params
         const goods = await Goods.findOne(
