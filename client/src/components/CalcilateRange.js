@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 
 const CalcilateRange = ({ price, onFilter }) => {
-  const [rangePrice, setRangePrice] = useState(price);
+  const [rangeValue, setRangeValue] = useState(price || 0);
 
-  const handleRangeChange = (e) => {
-    const newPrice = Number(e.target.value);
-    setRangePrice(newPrice);
-    onFilter(newPrice); 
+  
+  useEffect(() => {
+    setRangeValue(price || 0);
+  }, [price]);
+
+  const handleChange = (e) => {
+    const newValue = Number(e.target.value);
+    setRangeValue(newValue);
+    onFilter(newValue);
   };
 
   return (
-    <div>
-      <Form.Label>
-        Minimum price: {rangePrice}$
-      </Form.Label>
+    <div className="mt-3">
+      <Form.Label>Price: {rangeValue} $</Form.Label>
       <Form.Range
         min={0}
-        max={10000}
+        max={100000} 
         step={10}
-        value={rangePrice}
-        onChange={handleRangeChange}
+        value={rangeValue}
+        onChange={handleChange}
       />
     </div>
   );
 };
 
 export default CalcilateRange;
+

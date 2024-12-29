@@ -26,12 +26,12 @@ export default class GoodsStore{
     setSelectedType(type) {
         this.setPage(1);
         
-        this._selectedType = type; 
+        this._selectedType = type || {}; 
       }
     
       setSelectedBrand(brand) {
         this.setPage(1);
-        this._selectedBrand = brand;
+        this._selectedBrand = brand || {};
       }
     setMinPrice(price) {
         this.setPage(1)
