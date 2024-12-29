@@ -9,6 +9,7 @@ export default class GoodsStore{
         this._page=1
         this._totalCount=0
         this._limit=3
+        this._minPrice = 0;
         makeAutoObservable(this)
     }
 
@@ -22,14 +23,20 @@ export default class GoodsStore{
     setGoods(goods){
         this._goods=goods
     }
-    setSelectedType(type){
+    setSelectedType(type) {
+        this.setPage(1);
+        
+        this._selectedType = type; 
+      }
+    
+      setSelectedBrand(brand) {
+        this.setPage(1);
+        this._selectedBrand = brand;
+      }
+    setMinPrice(price) {
         this.setPage(1)
-        this._selectedType = type
-    }
-    setSelectedBrand(brand){
-        this.setPage(1)
-        this._selectedBrand = brand
-    }
+        this._minPrice = price;
+      }
 
     setPage(page){
         this._page=page
@@ -37,7 +44,7 @@ export default class GoodsStore{
     setTotalCount(count){
         this._totalCount=count
     }
-
+    
 
 
 
@@ -68,7 +75,9 @@ export default class GoodsStore{
     get limit(){
         return this._limit
     }
-
+    get minPrice() {
+        return this._minPrice;
+      }
 
 
 }

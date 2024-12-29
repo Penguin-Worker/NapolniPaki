@@ -29,6 +29,7 @@ export const createType = async (type) =>
                     
                     return data
                 }
+                
                 export const createGood = async (good) =>
                     {        
                         const {data} = await $authHost.post('api/goods', good)
@@ -36,16 +37,19 @@ export const createType = async (type) =>
                         return data
                     }
                 
-                    export const fetchGoods = async (typeId, brandId,page, limit=5) =>
-                        {
-                            
-                            const {data} = await $host.get('api/goods',{params:{
-                                typeId, brandId, page, limit
-                        }   
-                        })
-                            
-                            return data
-                        }
+                    export const fetchGoods = async (typeId, brandId, page, limit, price) => {
+                        const response = await $host.get('/api/goods', {
+                          params: {
+                            typeId,
+                            brandId,
+                            page,
+                            limit,
+                            price,
+                          },
+                        });
+                        return response.data;
+                      };
+                      
 
         export const fetchOneGoods = async (id) =>
                         {

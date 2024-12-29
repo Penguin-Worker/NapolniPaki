@@ -9,9 +9,6 @@ const CalcilateRange = ({ price, onFilter }) => {
     setRangePrice(newPrice);
     onFilter(newPrice); 
   };
-  React.useEffect(() => {
-    setRangePrice(price);
-  }, [price]);
 
   return (
     <div>
@@ -22,7 +19,7 @@ const CalcilateRange = ({ price, onFilter }) => {
         min={0}
         max={10000}
         step={10}
-        value={price}
+        value={rangePrice}
         onChange={handleRangeChange}
       />
     </div>
