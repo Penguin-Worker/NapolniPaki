@@ -42,12 +42,12 @@ const GoodsPage= () => {
         <h1>Details</h1>
         {goods.info && goods.info.length > 0 ? (
           goods.info.map((info, index) => (
-            <Row key={info.id} style={{ background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10 }}>
+            <Row key={info.id} style={{ background: index % 2 === 0 ? 'lightgray' : 'darkgray', padding: 10 }}>
               {info.title} : {info.description}
             </Row>
           ))
         ) : (
-          <div>No details available.</div>  // Сообщение, если информация не доступна
+          <div>No details available.</div>
         )}
       </Row>
     </Container>

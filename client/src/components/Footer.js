@@ -1,4 +1,5 @@
 import Nav from 'react-bootstrap/Nav';
+import { BASKET_ROUTE, HOME_ROUTE } from './utils/consts';
 
 const Footer = () => {
   return (
@@ -6,17 +7,17 @@ const Footer = () => {
     <footer style={{position:'fixed',bottom: 0, left: 0, width: '100%', backgroundColor: '#343a40' }}>
       <Nav className="justify-content-center" activeKey="/home">
         <Nav.Item>
-          <Nav.Link href="/home">Active</Nav.Link>
+          <Nav.Link href={HOME_ROUTE}>Active</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1">Link</Nav.Link>
+          <Nav.Link href={BASKET_ROUTE} eventKey="link-1">Profile</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-2">Link</Nav.Link>
+          <Nav.Link href={HOME_ROUTE} eventKey="link-2">Think</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="disabled" style={{color:'white'}} disabled>
-            Delete
+            Delete soon
           </Nav.Link>
         </Nav.Item>
       </Nav>
@@ -26,10 +27,10 @@ const Footer = () => {
           <Nav.Link href="https://github.com/Penguin-Worker/NapolniPaki" style={{color:'white'}}>GitHub </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1">Link</Nav.Link>
+          <Nav.Link eventKey="link-1">FAQ</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-2">Link</Nav.Link>
+          <Nav.Link href={HOME_ROUTE} eventKey="link-2">Home</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="disabled" style={{color:'white'}} disabled>

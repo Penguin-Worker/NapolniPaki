@@ -7,9 +7,9 @@ import { observer } from 'mobx-react-lite';
 
 
 const Basket = observer(() => {
-  const { user } = useContext(Context);  
-  const token = localStorage.getItem("token");
+  const { user } = useContext(Context);    
   const navigate = useNavigate()
+ 
   return (
     <Container className="mt-4">
       <Row className='d-flex m-2'>

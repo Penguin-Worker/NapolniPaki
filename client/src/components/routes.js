@@ -10,8 +10,8 @@ export const authRoutes =[
 {
         path: ADMIT_ROUTE,
         Component: Admin,
-        protected: true,
-        roleRequired: 'ADMIN'
+        protected: false,
+        roleRequired:'ADMIN'
 },
 {
     path: BASKET_ROUTE,
