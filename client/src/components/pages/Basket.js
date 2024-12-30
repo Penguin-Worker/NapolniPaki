@@ -31,7 +31,7 @@ const Basket = observer(() => {
       <Row className='mt-3'>        
       <Badge bg="secondary" >
         <h2 >History Info</h2>
-          Items
+          <p>sometime in the future</p>
           </Badge>
                 </Row>
                 <Row className='mt-3'>        

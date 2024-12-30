@@ -59,4 +59,21 @@ export const createType = async (type) =>
                             return data
                         }
                         
-             
+                        export const createRating = async (ratingData, userId, goodId) => {
+                            const { data } = await $authHost.post('api/rating', {
+                                rating: ratingData.rating,
+                                userId: userId,
+                                goodId: goodId
+                            });
+                            return data;
+                        };
+                        
+                        export const fetchAllRatings = async () => {
+                            const { data } = await $host.get('api/rating');
+                            return data;
+                        };
+                        
+                        export const fetchRatingsByGoodId = async (goodId) => {
+                            const { data } = await $host.get(`api/rating/${goodId}`);
+                            return data;
+                        };

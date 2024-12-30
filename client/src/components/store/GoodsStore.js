@@ -10,10 +10,13 @@ export default class GoodsStore{
         this._totalCount=0
         this._limit=3
         this._minPrice = 0;
+        this._raitings= []
         makeAutoObservable(this)
     }
 
-
+    setRaitings(raitings){
+        this._raitings=raitings
+    }
     setTypes(types){
         this._types=types
     }
@@ -48,7 +51,9 @@ export default class GoodsStore{
 
 
 
-
+    get raitings(){
+        return this._raitings
+    }
     get types(){
         return this._types
     }
