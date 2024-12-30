@@ -16,10 +16,10 @@ const TypeBar = observer(() => {
   };
 
   return (
-    <ListGroup>
+    <ListGroup >
       {goods.types.map((type) => (
         <ListGroup.Item
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer',backgroundColor: 'lightgray' }}
           active={type.id === goods.selectedType.id}
           onClick={() => handleTypeClick(type)}
           key={type.id}

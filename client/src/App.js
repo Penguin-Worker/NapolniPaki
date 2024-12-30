@@ -42,9 +42,11 @@ const App = observer( ()=> {
 
   return (
     <BrowserRouter>
+     <div className="App">
     <NavBar />
       <AppRouter />
     <Footer/>
+    </div>
     </BrowserRouter>
   );
 });

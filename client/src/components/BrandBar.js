@@ -26,7 +26,7 @@ const BrandBar = observer(() => {
             width: 'auto',
           }}
           key={brand.id}
-          className="p-3"
+          className="p-3 ms-1"
           onClick={() => handleBrandClick(brand)}
           border={brand.id === goods.selectedBrand.id ? 'danger' : 'light'}
         >

@@ -7,7 +7,7 @@ import { Context } from '../..';
 
 const HomePage = () => {
     const { user } = useContext(Context);
-  console.log(user.role);
+ 
   return (
     <div>
     <Carousel>
@@ -16,7 +16,11 @@ const HomePage = () => {
           className="d-block w-100"
           style={{
             height: '400px',
-            backgroundColor: 'gray', 
+             
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),url(${process.env.REACT_APP_API_URL}/static/Katalog.jpg)`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat', 
           }}
         >
           
@@ -32,13 +36,17 @@ const HomePage = () => {
           className="d-block w-100"
           style={{
             height: '400px',
-            backgroundColor: 'gray', 
+             
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),url(${process.env.REACT_APP_API_URL}/static/Installation.jpg)`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat', 
           }}
         >
           
         </div>
         <Carousel.Caption>
-        <NavLink className="ms-auto" style={{color:'white'}}>Installation</NavLink>
+        <NavLink className="ms-auto" style={{color:'white'}}>Installation and Service</NavLink>
           <p>Fast Inexpensive Obligingly</p>
         </Carousel.Caption>
       </Carousel.Item>
@@ -48,7 +56,11 @@ const HomePage = () => {
           className="d-block w-100"
           style={{
             height: '400px',
-            backgroundColor: 'gray', 
+             
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),url(${process.env.REACT_APP_API_URL}/static/business.jpg)`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat', 
           }}
         >
          

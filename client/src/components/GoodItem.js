@@ -21,20 +21,20 @@ const GoodItem = observer(({ goods }) => {
 
   return (
     <Col md={3} className="mt-2" onClick={() => navigate(GOODS_ROUTE + '/' + goods.id)}>
-      <Card style={{ width: 150, cursor: 'pointer' }} border="light">
-        <Image width={150} height={150} src={process.env.REACT_APP_API_URL + '/static/' + goods.img} />
+      <Card style={{ width: 180, cursor: 'pointer', backgroundColor: 'lightgray' }} border="darkgray" >
+        <Image width={180} height={180} src={process.env.REACT_APP_API_URL + '/static/' + goods.img} />
 
         <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">
           
-          <div>{brand ? brand.name : 'Unknown Brand'}</div>
+          <div className="ms-1">{brand ? brand.name : 'Unknown Brand'}</div>
           <div className="d-flex align-items-center">
             <div>{goods.rating}</div>
             <Image width={18} height={18} src={star} />
           </div>
         </div>
 
-        <div>{goods.name}</div>
-        <div>{goods.price}$</div>
+        <div className="ms-2">{goods.name}</div>
+        <div className="ms-3">{goods.price}$</div>
       </Card>
     </Col>
   );
