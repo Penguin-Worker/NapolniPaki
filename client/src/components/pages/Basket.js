@@ -3,10 +3,10 @@ import { Context } from '../..';
 import { Container, Button, Row, Col,Badge } from 'react-bootstrap';
 import { SHOP_ROUTE } from '../utils/consts';
 import {useNavigate} from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 
 
-const Basket = observer(() => {
+
+const Basket = () => {
   const { user } = useContext(Context);    
   const navigate = useNavigate()
  
@@ -68,6 +68,6 @@ const Basket = observer(() => {
         </Container>
         
   );
-});
+};
 
 export default Basket;

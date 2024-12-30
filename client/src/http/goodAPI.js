@@ -60,8 +60,9 @@ export const createType = async (type) =>
                         }
                         
                         export const createRating = async (ratingData, userId, goodId) => {
+                            console.log(userId, goodId)
                             const { data } = await $authHost.post('api/rating', {
-                                rating: ratingData.rating,
+                                rate: ratingData.rating,
                                 userId: userId,
                                 goodId: goodId
                             });

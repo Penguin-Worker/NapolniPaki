@@ -10,7 +10,7 @@ import { useParams, Link } from 'react-router-dom';
 import { fetchOneGoods } from '../../http/goodAPI';
 import { RATING_ROUTE } from '../utils/consts';
 
-import { createRating, fetchRatingsByGoodId } from '../../http/goodAPI';
+import { fetchRatingsByGoodId } from '../../http/goodAPI';
 const GoodsPage= () => {
   const [goods, setGoods] = useState({info:[]})
   const {id} = useParams()
@@ -35,8 +35,17 @@ const GoodsPage= () => {
     <Container className='mt-3'>
       <Row>
       <Col md={4}>
-      <Image  width={500} height={500} src={process.env.REACT_APP_API_URL +'/static/'+ goods.img} thumbnail/>
-      </Col>
+      {goods.img ? (
+  <Image
+    width={500}
+    height={500}
+    src={`${process.env.REACT_APP_API_URL}/static/${goods.img}`}
+    thumbnail
+  />
+) : (
+  <div>Loading image...</div>
+)}
+       </Col>
       <Col md={4}>
       <Row className='d-flex align-items-center'>
         <h2>{goods.name}</h2>

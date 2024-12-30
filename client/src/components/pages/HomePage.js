@@ -3,10 +3,10 @@ import Carousel from 'react-bootstrap/Carousel';
 import Row from 'react-bootstrap/Row';
 import { NavLink } from 'react-router-dom';
 import { SHOP_ROUTE } from '../utils/consts';
-import { Context } from '../..';
+
 
 const HomePage = () => {
-    const { user } = useContext(Context);
+    
  
   return (
     <div>

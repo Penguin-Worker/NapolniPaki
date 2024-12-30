@@ -9,19 +9,26 @@ import Button from 'react-bootstrap/esm/Button';
 import Badge from 'react-bootstrap/Badge';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useParams, Link } from 'react-router-dom';
-import { fetchOneGoods } from '../../http/goodAPI';
-import { createRating, fetchRatingsByGoodId } from '../../http/goodAPI';
+
+import { fetchOneGoods ,createRating, fetchRatingsByGoodId } from '../../http/goodAPI';
 import { GOODS_ROUTE } from '../utils/consts';
 import star from '../../assets/StarB.png';
+import { observer } from 'mobx-react-lite';
 
-const Raiting = () => {
+
+const Raiting = observer(() => {
     const { user } = useContext(Context);  
-
+    useEffect(() => {
+      if (!user || !user.user) {
+        console.log("User data is not available. Ensure the context provides valid data.");
+      }
+    }, [user]);
+    
   const [goods, setGoods] = useState({ info: [] });
   const [rating, setRating] = useState(''); 
   const [averageRating, setAverageRating] = useState(0); 
   const [ratings, setRatings] = useState([]); 
-  const { id } = useParams();
+  const { id   } = useParams();
 
   useEffect(() => {
     
@@ -30,13 +37,7 @@ const Raiting = () => {
       .catch((error) => console.error('Error fetching goods:', error));
 
    
-    fetchRatingsByGoodId(id)
-      .then((data) => {
-        setRatings(data);
-        calculateAverageRating(data);
-      })
-      .catch((error) => console.error('Error fetching ratings:', error));
-  }, [id]);
+    }, [id]);
 
   const calculateAverageRating = (ratings) => {
     if (ratings.length === 0) {
@@ -52,7 +53,7 @@ const Raiting = () => {
       alert('Please select a rating.');
       return;
     }
-    
+    console.log(id,user.user.id)
     createRating({rating}, user.user.id, id)
       .then((data) => {
         setRating('');
@@ -69,13 +70,16 @@ const Raiting = () => {
     <Container className="mt-3">
       <Row>
         <Col md={4}>
-          <Image
-            width={600}
-            height={600}
-            src={`${process.env.REACT_APP_API_URL}/static/${goods.img}`}
-            thumbnail
-            alt={goods.name}
-          />
+        {goods.img ? (
+  <Image
+    width={500}
+    height={500}
+    src={`${process.env.REACT_APP_API_URL}/static/${goods.img}`}
+    thumbnail
+  />
+) : (
+  <div>Loading image...</div>
+)}
           <h2>{goods.name}</h2>
         </Col>
 
@@ -147,6 +151,6 @@ const Raiting = () => {
       </Row>
     </Container>
   );
-};
+});
 
 export default Raiting;
