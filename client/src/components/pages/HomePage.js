@@ -42,11 +42,11 @@ const HomePage = () => {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat', 
           }}
-        >
+        >    
           
         </div>
         <Carousel.Caption>
-        <NavLink className="ms-auto" style={{color:'white'}}>Installation and Service</NavLink>
+        <NavLink className="ms-auto" to={SHOP_ROUTE+'?type=service&brand=client'} style={{color:'white'}}>Installation and Service</NavLink>
           <p>Fast Inexpensive Obligingly</p>
         </Carousel.Caption>
       </Carousel.Item>
@@ -66,7 +66,7 @@ const HomePage = () => {
          
         </div>
         <Carousel.Caption>
-        <NavLink className="ms-auto" style={{color:'white'}}>BUSINESS</NavLink>
+        <NavLink className="ms-auto" to={SHOP_ROUTE+'?type=service&brand=business'} style={{color:'white'}}>BUSINESS</NavLink>
           <p>
             Special offers
           </p>

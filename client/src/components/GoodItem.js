@@ -34,7 +34,7 @@ const GoodItem = observer(({ goods }) => {
         </div>
 
         <div className="ms-2">{goods.name}</div>
-        <div className="ms-3">{goods.price}$</div>
+        <div className="ms-3">From {goods.price}$</div>
       </Card>
     </Col>
   );
