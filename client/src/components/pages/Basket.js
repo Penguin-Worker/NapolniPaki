@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../..';
 import { Container, Button, Row, Col,Badge } from 'react-bootstrap';
-import { SHOP_ROUTE } from '../utils/consts';
+import { SHOP_ROUTE, ADMIT_ROUTE } from '../utils/consts';
 import {useNavigate} from 'react-router-dom';
 
 
@@ -34,14 +34,16 @@ const Basket = () => {
           <p>sometime in the future</p>
           </Badge>
                 </Row>
-                <Row className='mt-3'>        
+                {user.user.role === 'ADMIN' && (      
+        
+                <Row className='mt-3'>  
+                        
       <Badge bg="secondary" >
-        <h2 >Favorite</h2>
-          <div>Items</div>
-          <Button className='mt-2' variant="outline-light" onClick={() => navigate(SHOP_ROUTE)}>Report</Button>
-          </Badge>
-          
-                </Row>
+      
+        <h2 >O hey look</h2>          
+          <Button variant='outline-light' onClick={()=> navigate(ADMIT_ROUTE)}>AdminPanel</Button>
+          </Badge>          
+                </Row>)}
                 
         </Col>
         <Col className='mt-2'>

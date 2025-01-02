@@ -18,12 +18,7 @@ import { observer } from 'mobx-react-lite';
 
 const Raiting = observer(() => {
     const { user } = useContext(Context);  
-    useEffect(() => {
-      if (!user || !user.user) {
-        console.log("User data is not available. Ensure the context provides valid data.");
-      }
-    }, [user]);
-    
+       
   const [goods, setGoods] = useState({ info: [] });
   const [rating, setRating] = useState(''); 
   const [averageRating, setAverageRating] = useState(0); 
