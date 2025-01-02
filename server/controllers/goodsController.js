@@ -20,7 +20,7 @@ class GoodsController {
             } else {
                 
                 fileName = uuid.v4() + ".jpg";
-            img.mv(path.resolve(__dirname, '..', 'static', fileName));  // Перемещаем файл
+            img.mv(path.resolve(__dirname, '..', 'static', fileName));
          
             }
         const goods = await Goods.create({name, price, brandId, typeId, img: fileName})
