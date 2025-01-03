@@ -1,22 +1,23 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../..';
 import { Container, Button, Row, Col, Badge } from 'react-bootstrap';
-import { SHOP_ROUTE, ADMIT_ROUTE } from '../utils/consts';
+import { SHOP_ROUTE, ADMIT_ROUTE, ADMIN_REPORT } from '../utils/consts';
 import {useParams, useNavigate } from 'react-router-dom';
 import { getBasket, fetchOneGoods, removeFromBasket , fetchBasketId} from '../../http/goodAPI';
 import { observer } from 'mobx-react-lite';
 
 const Basket = observer(() => {
-  const { user,goods } = useContext(Context); 
+  const { user,goods: goodsStore } = useContext(Context); 
      
   const navigate = useNavigate();
   const [basketItems, setBasketItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0); 
   const [basketId, setBasketId] = useState();
-
+  const [goodData, setGoodsData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 const [error, setError] = useState(null);
 const {id} = useParams()
+
 useEffect(() => {
   if (user.user.id) {
     setIsLoading(true);  
@@ -38,12 +39,13 @@ useEffect(() => {
       });
   }
 }, [user.user.id]);
+
 useEffect(() => {
   if (user.user.id) {
     fetchBasketId(user.user.id)
       .then((basketId) => {
         setBasketId(basketId);
-        console.log(basketId);  
+       
       })
       .catch((error) => {
         console.error("Ошибка при получении basketId", error);
@@ -66,7 +68,6 @@ const handleRemoveFromBasket = (goodId) => {
       alert('Ошибка при удалении товара');
     });
 };
-
 
 
 {isLoading && <div>Загрузка...</div>}
@@ -109,7 +110,7 @@ const handleRemoveFromBasket = (goodId) => {
         <div key={`${item.id}-${index}`}style={{ marginBottom: '15px' }}>
           <Row>
                       <Col>
-                        <h4>Good ID: {item}</h4> 
+                        <h4>Good ID: {item} </h4> 
                       </Col>
                       <Col>
                         <Button
@@ -136,7 +137,7 @@ const handleRemoveFromBasket = (goodId) => {
               <Badge bg="secondary">
                 <h2>O hey look</h2>          
                 <Button variant='outline-light' onClick={()=> navigate(ADMIT_ROUTE)}>AdminPanel</Button>
-                <Button className='ms-2' variant='outline-light' onClick={()=> ''}>Users Report</Button>
+                <Button className='ms-2' variant='outline-light' onClick={()=>navigate(ADMIN_REPORT)}>Users Report</Button>
               </Badge>
             </Row>
           )}

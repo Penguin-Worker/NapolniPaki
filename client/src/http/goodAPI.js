@@ -50,7 +50,7 @@ export const createType = async (type) =>
                         return response.data;
                       };
                       
-
+                    
         export const fetchOneGoods = async (id) =>
                         {
                             
@@ -80,7 +80,7 @@ export const createType = async (type) =>
                         };
 
                         export const addToBasket = async(goodId, userId)=>{
-                            console.log("Adding to basket", goodId, userId);
+                            
                             
                             const { data } = await $authHost.post('api/basket/add', { goodId, userId });
                             return data

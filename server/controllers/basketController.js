@@ -51,7 +51,7 @@ async getBasket(req, res) {
 
     const goodIds = basketGoods.map(item => item.goodId);
 
-    console.log('Товары в корзине (goodId):', goodIds);  
+    
 
     return res.json(goodIds);
   } catch (error) {

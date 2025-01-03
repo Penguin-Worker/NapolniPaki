@@ -44,6 +44,20 @@ class UserController {
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
         return res.json({token})
     }
+    async report(req, res, next) {
+        try {
+            const users = await User.findAll();
+            const formattedUsers = users.map(user => ({
+                id: user.id,
+                email: user.email,
+                role: user.role,
+                createdAt: user.createdAt  // Убедитесь, что вы передаете createdAt
+            }));
+            res.status(200).json(formattedUsers); } catch (error) {
+            console.error('Ошибка при получении данных о пользователях:', error);
+            return next(ApiError.internal('Ошибка при получении данных о пользователях'));
+        }
+    }
 }
 
 module.exports = new UserController()

@@ -5,7 +5,8 @@ import Basket from "./pages/Basket"
 import GoodsPage from "./pages/GoodsPage"
 import HomePage from "./pages/HomePage"
 import Shop from "./pages/Shop"
-import { ADMIT_ROUTE, BASKET_ROUTE, GOODS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, RATING_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import AdminReport from "./Reports/AdminReport"
+import { ADMIN_REPORT, ADMIT_ROUTE, BASKET_ROUTE, GOODS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, RATING_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
 export const authRoutes =[
 {
@@ -13,6 +14,12 @@ export const authRoutes =[
         Component: Admin,
         protected: false,
         roleRequired:'ADMIN'
+},
+{
+    path: ADMIN_REPORT,
+    Component: AdminReport,
+    protected: false,
+    roleRequired:'ADMIN'
 },
 {
     path: BASKET_ROUTE,
