@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
 import Image from 'react-bootstrap/esm/Image';
 import Row from 'react-bootstrap/esm/Row';
 import Card from 'react-bootstrap/esm/Card';
+import Form from 'react-bootstrap/esm/Form';
 import star from '../../assets/StarB.png';
 import Button from 'react-bootstrap/esm/Button';
 import { useParams, Link } from 'react-router-dom';
-import { fetchOneGoods } from '../../http/goodAPI';
+import { fetchOneGoods, addToBasket } from '../../http/goodAPI';
 import { RATING_ROUTE } from '../utils/consts';
+import { Context } from '../..';
 
 import { fetchRatingsByGoodId } from '../../http/goodAPI';
 const GoodsPage= () => {
@@ -16,8 +18,15 @@ const GoodsPage= () => {
   const {id} = useParams()
   const [averageRating, setAverageRating] = useState(0); 
   const [ratings, setRatings] = useState([]); 
+  const [area, setArea] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const { user } = useContext(Context); 
+
   useEffect(() => {
-    fetchOneGoods(id).then(data => setGoods(data))
+    fetchOneGoods(id).then(data=> {
+      setGoods(data);
+      setTotalPrice(data.price);
+    });
     fetchRatingsByGoodId(id)
       .then((data) => {
         setRatings(data);
@@ -30,6 +39,21 @@ const GoodsPage= () => {
     }
     const sum = ratings.reduce((acc, r) => acc + r.rate, 0);
     setAverageRating((sum / ratings.length).toFixed(1));
+  };
+  const handleAreaChange = (e) => {
+    const newArea = e.target.value;
+    setArea(newArea);
+    setTotalPrice((newArea * goods.price).toFixed(2));
+  };
+  const handleAddToBasket = async () => {
+    try {
+      console.log(goods.id, user.user.id)
+      await addToBasket(goods.id, user.user.id);
+      alert('Товар добавлен в корзину!');
+    } catch (error) {
+      console.error(error);
+      alert('Ошибка при добавлении товара в корзину.');
+    }
   };
   return (
     <Container className='mt-3'>
@@ -60,10 +84,23 @@ const GoodsPage= () => {
       <Card className='d-felx flex-column align-items-center justify-content-around'
       style={{width:300,height:300,fontSize:28, border:'5px solid lightgray'}}>
     <h3>{goods.name}</h3>
-    <h3>From: {goods.price} $</h3>
-    <Button variant='outline-dark'>BUY</Button>
-      </Card>
-      </Col>
+    <h3>Price: {goods.price} $ / m²</h3>
+            <Form.Group controlId="formBasicRange">
+              <Form.Label>Square: {area} м²</Form.Label>
+              <Form.Control
+                type="range"
+                min="1"
+                max="100"
+                value={area}
+                onChange={handleAreaChange}
+              />
+            </Form.Group>
+            <h4>Final price: {totalPrice} $</h4>
+            <Button variant="outline-dark" onClick={handleAddToBasket}>
+              Add to basket
+            </Button>
+          </Card>
+        </Col>
       </Row>
       <Row className='d-flex flex-column m-3'>
         <h1>Details</h1>

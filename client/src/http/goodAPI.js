@@ -78,3 +78,40 @@ export const createType = async (type) =>
                             const { data } = await $host.get(`api/rating/${goodId}`);
                             return data;
                         };
+
+                        export const addToBasket = async(goodId, userId)=>{
+                            console.log("Adding to basket", goodId, userId);
+                            
+                            const { data } = await $authHost.post('api/basket/add', { goodId, userId });
+                            return data
+                        }
+
+                        export const getBasket = async (userId) => {
+                            try {
+                            
+                              const { data } = await $authHost.get(`api/basket/${userId}`);
+                              
+                              return data;  
+                            } catch (error) {
+                             
+                              throw error; 
+                            }
+                          };
+                          export const removeFromBasket = async (basketId, goodId) => {
+                            try {
+                              const { data } = await $authHost.post('api/basket/remove', { basketId, goodId });
+                              return data;
+                            } catch (error) {
+                              console.error("Ошибка при удалении товара из корзины:", error);
+                              throw error;
+                            }
+                          };
+                          export const fetchBasketId = async (userId) => {
+                            try {
+                              const { data } = await $authHost.get(`api/basket/basket/${userId}`);
+                              return data.basketId;  
+                            } catch (error) {
+                              console.error("Ошибка получения корзины:", error);
+                              throw error;
+                            }
+                          };

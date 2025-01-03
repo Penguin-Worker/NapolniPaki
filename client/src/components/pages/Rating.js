@@ -24,7 +24,13 @@ const Raiting = observer(() => {
   const [averageRating, setAverageRating] = useState(0); 
   const [ratings, setRatings] = useState([]); 
   const { id   } = useParams();
-
+  useEffect(() => {
+    fetchOneGoods(id).then(data => setGoods(data))
+    fetchRatingsByGoodId(id)
+      .then((data) => {
+        setRatings(data);
+        calculateAverageRating(data);})
+  }, [id]);
   useEffect(() => {
     
     fetchOneGoods(id)
