@@ -4,7 +4,8 @@ const basketController = require('../controllers/basketController')
 const checkrole = require('../middleware/checkRoleMeiddleware')
 
 router.post('/add', basketController.addToBasket);
-router.get('/:user_id', basketController.getBasket);
-router.delete('/:id', basketController.removeFromBasket);
+router.get('/:userId', basketController.getBasket);
+router.post('/remove', basketController.removeFromBasket);
+router.get('/basket/:userId', basketController.getBasketId);
 
 module.exports = router;
