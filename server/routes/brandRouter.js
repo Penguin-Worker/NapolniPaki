@@ -5,5 +5,5 @@ const checkrole = require('../middleware/checkRoleMeiddleware')
 
 router.post('/',checkrole('ADMIN'),brandController.create)
 router.get('/',brandController.getAll)
-
+router.put('/:id',brandController.updateBrand)
 module.exports = router
