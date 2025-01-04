@@ -85,7 +85,7 @@ const GoodsPage= () => {
         <Link  to={RATING_ROUTE+ '/' + goods.id}>
         <div className='d-flex align-items-center justify-content-center'
         style={{background:`url(${star}) no-repeat center center `,cursor: 'pointer', width:240, height:240, backgroundSize: 'cover', fontSize:48 }}>
-       {averageRating > 0 ? `${averageRating}` : 'No ratings yet'}
+       {averageRating > 0 ? `${averageRating}` : 'No rate'}
         </div></Link>
       </Row>
       </Col>
