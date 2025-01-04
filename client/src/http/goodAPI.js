@@ -58,6 +58,14 @@ export const createType = async (type) =>
                             
                             return data
                         }
+                        export const updateType = async (id, typeData) => {
+                          const { data } = await $authHost.put(`api/type/${id}`, typeData);
+                          return data;
+                        };
+                        export const updateBrand = async (id, brandData) => {
+                          const { data } = await $authHost.put(`api/brand/${id}`, brandData);
+                          return data;
+                        };
                         
                         export const createRating = async (ratingData, userId, goodId) => {
                             console.log(userId, goodId)
