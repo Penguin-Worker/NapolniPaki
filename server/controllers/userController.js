@@ -46,12 +46,13 @@ class UserController {
     }
     async report(req, res, next) {
         try {
-            const users = await User.findAll();
+            const users = await User.findAll({
+                attributes: ['id', 'email', 'role', 'createdAt'],   });
             const formattedUsers = users.map(user => ({
                 id: user.id,
                 email: user.email,
                 role: user.role,
-                createdAt: user.createdAt  // Убедитесь, что вы передаете createdAt
+                createdAt: user.createdAt
             }));
             res.status(200).json(formattedUsers); } catch (error) {
             console.error('Ошибка при получении данных о пользователях:', error);
