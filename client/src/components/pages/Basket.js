@@ -1,81 +1,89 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react'; 
 import { Context } from '../..';
 import { Container, Button, Row, Col, Badge } from 'react-bootstrap';
 import { SHOP_ROUTE, ADMIT_ROUTE, ADMIN_REPORT } from '../utils/consts';
-import {useParams, useNavigate } from 'react-router-dom';
-import { getBasket, fetchOneGoods, removeFromBasket , fetchBasketId} from '../../http/goodAPI';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getBasket, fetchOneGoods, removeFromBasket, fetchBasketId } from '../../http/goodAPI';
 import { observer } from 'mobx-react-lite';
 
 const Basket = observer(() => {
-  const { user,goods: goodsStore } = useContext(Context); 
-     
+  const { user } = useContext(Context); 
   const navigate = useNavigate();
-  const [basketItems, setBasketItems] = useState([]);
+  
+  const [basketItems, setBasketItems] = useState([]); 
+  const [basketId, setBasketId] = useState(null);
+  const [goodsData, setGoodsData] = useState({}); 
   const [totalPrice, setTotalPrice] = useState(0); 
-  const [basketId, setBasketId] = useState();
-  const [goodData, setGoodsData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-const [error, setError] = useState(null);
-const {id} = useParams()
+  const [error, setError] = useState(null);
 
-useEffect(() => {
-  if (user.user.id) {
-    setIsLoading(true);  
-    getBasket(user.user.id)
-      .then(response => {
-        setIsLoading(false);  
-        
-        if (response && response.length > 0) {
-          setBasketItems(response);
-        } else {
-          setBasketItems([]);
-          
-        }
+  useEffect(() => {
+    if (user.user.id) {
+      setIsLoading(true);
+      getBasket(user.user.id)
+        .then(async (response) => {
+          setIsLoading(false);
+          if (response && response.length > 0) {
+            setBasketItems(response);
+  
+            const goods = await Promise.all(
+              response.map(async (item) => {
+                const data = await fetchOneGoods(item);
+                return { [item]: data };
+              })
+            );
+            setGoodsData(Object.assign({}, ...goods));
+          } else {
+            setBasketItems([]);
+          }
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setError('Произошла ошибка при загрузке корзины');
+        });
+    }
+  }, [user.user.id]);
+  
+
+  useEffect(() => {
+    if (user.user.id) {
+      fetchBasketId(user.user.id)
+        .then((basketId) => setBasketId(basketId))
+        .catch((error) => console.error("Ошибка при получении basketId", error));
+    }
+  }, [user.user.id]);
+
+  const handleRemoveFromBasket = (goodId) => {
+    if (!basketId) {
+      alert('Корзина не найдена.');
+      return;
+    }
+
+    removeFromBasket(basketId, goodId)
+      .then((response) => {
+        alert(response.message);
+        setBasketItems(basketItems.filter(item => item !== goodId));
+        setGoodsData(prev => {
+          const updatedData = { ...prev };
+          delete updatedData[goodId];
+          return updatedData;
+        });
       })
-      .catch(error => {
-        setIsLoading(false);
-        
-        setError('Произошла ошибка при загрузке корзины');
-      });
-  }
-}, [user.user.id]);
+      .catch(() => alert('Ошибка при удалении товара'));
+  };
 
-useEffect(() => {
-  if (user.user.id) {
-    fetchBasketId(user.user.id)
-      .then((basketId) => {
-        setBasketId(basketId);
-       
-      })
-      .catch((error) => {
-        console.error("Ошибка при получении basketId", error);
-      });
-  }
-}, [user.user.id]);
+  const calculateTotalPrice = () => {
+    const total = basketItems.reduce((sum, item) => {
+      const good = goodsData[item];
+      return good ? sum + good.price : sum; 
+    }, 0);
+    setTotalPrice(total);
+  };
 
-const handleRemoveFromBasket = (goodId) => {
-  if (!basketId) {
-    alert('Корзина не найдена.');
-    return;
-  }
-
-  removeFromBasket(basketId, goodId)
-    .then((response) => {
-      alert(response.message);
-      setBasketItems(basketItems.filter(item => item.goodId !== goodId));
-    })
-    .catch((error) => {
-      alert('Ошибка при удалении товара');
-    });
-};
-
-
-{isLoading && <div>Загрузка...</div>}
-
-{error && <div style={{ color: 'red' }}>{error}</div>}
-
-
-
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [goodsData, basketItems]);
+  console.log('User:', user);
   return (
     <Container className="mt-4">
       <Row className='d-flex m-2'>
@@ -86,7 +94,6 @@ const handleRemoveFromBasket = (goodId) => {
         </h1>
         
         <Col className='mt-2' md={5}>
-        
           <Row>
             <Badge bg="secondary">
               <h2>Profile Info</h2>
@@ -101,31 +108,31 @@ const handleRemoveFromBasket = (goodId) => {
                 <h2>Your Basket</h2>
               </Row>
               <Row>                
-  {basketItems.length === 0 ? (
-    <div>Корзина пуста</div>
-  ) : (
-    basketItems.map((item, index) => {
-      
-      return (
-        <div key={`${item.id}-${index}`}style={{ marginBottom: '15px' }}>
-          <Row>
-                      <Col>
-                        <h4>Good ID: {item} </h4> 
-                      </Col>
-                      <Col>
-                        <Button
-                          variant="danger"
-                          onClick={() => handleRemoveFromBasket(item)}>
-                          Удалить
-                        </Button>
-                      </Col>
-                    </Row>
-        </div>
-      );
-    })
-  )}
-</Row>
-
+                {basketItems.length === 0 ? (
+                  <div>Emty</div>
+                ) : (
+                  basketItems.map((item) => {
+                    const good = goodsData[item];
+                    return (
+                      <div key={item} style={{ marginBottom: '15px' }}>
+                        <Row>
+                          <Col className='ms-2'>
+                            <h4>{good ? good.name : 'Loading...'}</h4>
+                            <p>Price: {good ? `$${good.price}` : 'Loadint...'}</p>
+                          </Col>
+                          <Col>
+                            <Button
+                              variant="danger"
+                              onClick={() => handleRemoveFromBasket(item)}>
+                             Delete
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    );
+                  })
+                )}
+              </Row>
 
               <Row><h4>Total Price: ${totalPrice}</h4></Row>
               <Button className='mt-2' variant="outline-light" onClick={() => navigate(SHOP_ROUTE)}>Report</Button>
@@ -136,18 +143,13 @@ const handleRemoveFromBasket = (goodId) => {
             <Row className='mt-3'>  
               <Badge bg="secondary">
                 <h2>O hey look</h2>          
-                <Button variant='outline-light' onClick={()=> navigate(ADMIT_ROUTE)}>AdminPanel</Button>
-                <Button className='ms-2' variant='outline-light' onClick={()=>navigate(ADMIN_REPORT)}>Users Report</Button>
+                <Button variant='outline-light' onClick={() => navigate(ADMIT_ROUTE)}>AdminPanel</Button>
+                <Button className='ms-2' variant='outline-light' onClick={() => navigate(ADMIN_REPORT)}>Users Report</Button>
               </Badge>
             </Row>
           )}
         </Col>        
       </Row>
-      <hr style={{width:'0'}}/>
-      <hr style={{width:'0'}}/>
-      <hr style={{width:'0'}}/>
-      <hr style={{width:'0'}}/>
-      <hr style={{width:'0'}}/>
     </Container>
   );
 });

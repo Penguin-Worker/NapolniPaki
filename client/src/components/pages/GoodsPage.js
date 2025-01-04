@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/esm/Form';
 import star from '../../assets/StarB.png';
 import Button from 'react-bootstrap/esm/Button';
 import { useParams, Link } from 'react-router-dom';
-import { fetchOneGoods, addToBasket } from '../../http/goodAPI';
+import { fetchOneGoods, addToBasket, getBasket } from '../../http/goodAPI';
 import { RATING_ROUTE } from '../utils/consts';
 import { Context } from '../..';
 
@@ -48,11 +48,20 @@ const GoodsPage= () => {
   const handleAddToBasket = async () => {
     try {
       console.log(goods.id, user.user.id)
+      const currentBasket = await getBasket(user.user.id);
+      if (currentBasket.length >= 5) {
+        alert('You cannot add more than 5 sametimes.');
+        return; 
+      }
+      if (currentBasket.some(item => item === goods.id)) { 
+        alert('This item has already been added to your cart.');
+        return;
+      }
       await addToBasket(goods.id, user.user.id);
-      alert('Товар добавлен в корзину!');
+      alert('Product added to cart!');
     } catch (error) {
       console.error(error);
-      alert('Ошибка при добавлении товара в корзину.');
+      alert('Something went wrong');
     }
   };
   return (
