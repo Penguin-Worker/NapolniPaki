@@ -21,7 +21,7 @@ const Footer = () => {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <p className="text-center mt-2 mb-2" style={{color:'white'}}>Stay safe</p>
+      <p className="text-center mt-1 mb-1" style={{color:'white'}}>Stay safe</p>
       <Nav className="justify-content-end" activeKey="/home">
         <Nav.Item>
           <Nav.Link href="https://github.com/Penguin-Worker/NapolniPaki" style={{color:'white'}}>GitHub </Nav.Link>
