@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { $authHost, $host } from "../../http/index";
+import { $authHost} from "../../http/index";
 import { Button } from 'react-bootstrap';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; 
@@ -31,7 +31,7 @@ const UsersReport = () => {
       user.id,       
       user.email,    
       user.role,     
-      new Date(user.createdAt).toLocaleString()   
+     user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A'
     ]);
 
     
