@@ -1,4 +1,4 @@
-const {Brand} = require('../models/models')
+const {Brand,Goods} = require('../models/models')
 class BrandController {
     async create(req,res){
         const {name} = req.body
@@ -28,6 +28,26 @@ class BrandController {
           return res.status(500).json({ message: 'Internal server error' });
         }
       }
+      async delete(req, res) {
+        const { id } = req.params;
+    
+        try {
+          const linkedGoods = await Goods.findAll({ where: { brandId: id } });
+          if (linkedGoods.length > 0) {
+            return res.status(400).json({ message: 'Cannot delete brand. It is associated with one or more goods.' });
+          }
+    
+          const brand = await Brand.destroy({ where: { id } });
+          if (!brand) {
+            return res.status(404).json({ message: 'Brand not found.' });
+          }
+    
+          return res.status(200).json({ message: 'Brand deleted successfully.' });
+        } catch (error) {
+          return res.status(500).json({ message: 'Failed to delete brand.', error });
+        }
+      }
+
 }
 
 module.exports = new BrandController()

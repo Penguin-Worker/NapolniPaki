@@ -85,6 +85,20 @@ class GoodsController {
         )
         return res.json(goods)
     }
+
+    async delete(req, res) {
+        const { id } = req.params;
+    
+        try {
+          const good = await Goods.destroy({ where: { id } });
+          if (!good) {
+            return res.status(404).json({ message: 'Good not found.' });
+          }    
+          return res.status(200).json({ message: 'Good deleted successfully.' });
+        } catch (error) {
+          return res.status(500).json({ message: 'Failed to delete good.', error });
+        }
+      }
 }
 
 module.exports = new GoodsController()
