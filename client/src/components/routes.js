@@ -6,9 +6,10 @@ import GoodsPage from "./pages/GoodsPage"
 import HomePage from "./pages/HomePage"
 import Shop from "./pages/Shop"
 import AdminReport from "./Reports/AdminReport"
-import { ADMIN_REPORT,USER_REPORT, ADMIT_ROUTE, BASKET_ROUTE, GOODS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, RATING_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, DISCOUNT_ROUTE } from "./utils/consts"
+import { ADMIN_REPORT,USER_REPORT, ADMIT_ROUTE, BASKET_ROUTE, GOODS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, RATING_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, DISCOUNT_ROUTE, FAQ_ROUTE } from "./utils/consts"
 import UserBasketReport from "./Reports/UserBasketReport"
 import DiscountsPage from "./pages/DiscountPage"
+import FAQPage from "./pages/FAQPage"
 
 export const authRoutes =[
 {
@@ -63,6 +64,10 @@ export const publicRoutes =[
     {
         path: LOGIN_ROUTE,
         Component: Auth
+    },
+    {
+        path: FAQ_ROUTE,
+        Component: FAQPage
     },
     {
         path: GOODS_ROUTE + '/:id',
