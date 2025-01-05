@@ -6,8 +6,9 @@ import GoodsPage from "./pages/GoodsPage"
 import HomePage from "./pages/HomePage"
 import Shop from "./pages/Shop"
 import AdminReport from "./Reports/AdminReport"
-import { ADMIN_REPORT,USER_REPORT, ADMIT_ROUTE, BASKET_ROUTE, GOODS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, RATING_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import { ADMIN_REPORT,USER_REPORT, ADMIT_ROUTE, BASKET_ROUTE, GOODS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, RATING_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, DISCOUNT_ROUTE } from "./utils/consts"
 import UserBasketReport from "./Reports/UserBasketReport"
+import DiscountsPage from "./pages/DiscountPage"
 
 export const authRoutes =[
 {
@@ -35,6 +36,11 @@ export const authRoutes =[
 {
     path: RATING_ROUTE + '/:id',
     Component: Rating,
+    protected: false
+},
+{
+    path: DISCOUNT_ROUTE,
+    Component: DiscountsPage,
     protected: false
 }
 ]
