@@ -67,6 +67,35 @@ export const createType = async (type) =>
                           return data;
                         };
                         
+                        export const deleteType = async(id)=>{
+                          try {
+                            const response = await $authHost.delete(`api/type/${id}`);
+                            return response.data;
+                          } catch (error) {
+                            console.error('Error deleting type:', error.response?.data || error.message);
+                            throw error; 
+                          }
+                        }
+                        export const deleteBrand = async(id)=>{
+                          try {
+                            const response = await $authHost.delete(`api/brand/${id}`);
+                            return response.data;
+                          } catch (error) {
+                            console.error('Error deleting brand:', error.response?.data || error.message);
+                            throw error;
+                          }
+                        }
+                        export const deleteGood = async(id)=>{
+                          try {
+                            const response = await $host.delete(`api/goods/${id}`);
+                            return response.data;
+                          } catch (error) {
+                            console.error('Error deleting good:', error.response?.data || error.message);
+                            throw error;
+                          }
+                        }
+
+
                         export const createRating = async (ratingData, userId, goodId) => {
                             console.log(userId, goodId)
                             const { data } = await $authHost.post('api/rating', {
