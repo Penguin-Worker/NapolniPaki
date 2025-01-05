@@ -1,8 +1,9 @@
-import React ,{ useContext } from 'react';
+import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import Row from 'react-bootstrap/Row';
+import { Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { SHOP_ROUTE } from '../utils/consts';
+import { DISCOUNT_ROUTE, FAQ_ROUTE, SHOP_ROUTE } from '../utils/consts';
 
 
 const HomePage = () => {
@@ -73,13 +74,28 @@ const HomePage = () => {
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
-    <Row className="d-flex flex-column m-3 ">
-          <h2 >Some interseting info</h2>
-          <Row>
-          <h4 >Some interseting info</h4>
-          </Row>
-          <h2 className='mt-3'>Some interseting info</h2>
-    </Row>
+    <div className="ms-3 mt-3">
+      <Row className="d-flex flex-column m-3">
+        <h2>Some interesting info</h2>
+        <Row>
+          <h4>Some interesting info</h4>
+        </Row>
+
+        <h2 className="mt-3">More Information</h2>
+        <Row>
+          <Col>
+            <Link to={DISCOUNT_ROUTE}>
+              <Button variant="primary" className="mb-2">Go to Discounts Page</Button>
+            </Link>
+          </Col>
+          <Col>
+            <Link to={FAQ_ROUTE}>
+              <Button variant="primary" className="mb-2">Go to FAQ Page</Button>
+            </Link>
+          </Col>
+        </Row>
+      </Row>
+    </div>
     </div>
   );
 };
