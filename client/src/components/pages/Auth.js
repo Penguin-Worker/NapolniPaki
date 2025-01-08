@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from '../utils/consts';
 import { login, registration } from '../../http/userAPI';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../..';
@@ -38,7 +38,7 @@ const Auth = observer(() => {
 
       user.setUser(user);
       user.setIsAuth(true);
-      navigateS(SHOP_ROUTE);
+      navigateS(HOME_ROUTE);
     } catch (e) {
       alert(e.response.data.message);
     }
