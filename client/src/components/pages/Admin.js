@@ -170,7 +170,8 @@ const Admin = observer(() => {
         onHide={() => { setEditingGood(null); setGoodVisiable(false); }}
         editingItem={editingGood}
       />      <hr style={{opacity: 0}}></hr><hr style={{opacity: 0}}></hr><hr></hr>
-      <hr></hr><hr></hr>
+      <div style={{opacity: 0}}>
+      <hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr></div>
       
     </Container>
   );

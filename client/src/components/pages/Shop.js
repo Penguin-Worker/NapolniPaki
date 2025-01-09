@@ -136,6 +136,8 @@ const Shop = observer(() => {
           <Pages />
         </Col>
       </Row>
+      <div style={{opacity: 0}}>
+      <hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr></div>
     </Container>
   );
 });

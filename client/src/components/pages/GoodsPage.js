@@ -123,6 +123,8 @@ const GoodsPage= () => {
           <div>No details available.</div>
         )}
       </Row>
+      <div style={{opacity: 0}}>
+      <hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr></div>
     </Container>
   );
 }

@@ -150,6 +150,8 @@ const Raiting = observer(() => {
           <div>No ratings available.</div>
         )}
       </Row>
+      <div style={{opacity: 0}}>
+      <hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr></div>
     </Container>
   );
 });
